@@ -53,7 +53,7 @@ function WrapperProducts({ products }: { products: Product[] }) {
   }, [inView, fetchNextPage, hasNextPage]);
 
   return (
-    <div className="h-[calc(100vh-4rem)] overflow-y-auto">
+    <div className=" overflow-y-auto">
       <div className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-16 items-center px-4 gap-4">
           <Link

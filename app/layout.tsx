@@ -41,7 +41,7 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               <div className="relative w-full">
-                <HeaderPage />
+                {/* <HeaderPage /> */}
                 {children}
               </div>
             </ThemeProvider>
