@@ -41,7 +41,9 @@ function WrapperProducts({ products }: { products: Product[] }) {
     });
 
   useEffect(() => {
-    refetch();
+    setTimeout(() => {
+      refetch();
+    }, 10);
   }, [debouncedSearch, refetch]);
 
   const filteredProducts = data?.pages.flatMap((page) => page.products) || [];
