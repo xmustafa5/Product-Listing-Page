@@ -35,7 +35,7 @@ export default function RootLayout({
           <QueryClientProviderLayout>
             <ThemeProvider
               attribute="class"
-              defaultTheme="light"
+              defaultTheme="dark"
               enableSystem
               disableTransitionOnChange
             >
