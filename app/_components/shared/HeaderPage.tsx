@@ -10,12 +10,12 @@ export default function HeaderPage() {
           Product Showcase
         </span>
       </div>
-
+      {/* 
       <div className="flex-1" />
 
       <div className="flex items-center gap-2">
         <ModeToggle />
-      </div>
+      </div> */}
     </div>
   );
 }
