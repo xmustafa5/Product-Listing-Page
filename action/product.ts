@@ -18,7 +18,7 @@ const mockProducts: Product[] = Array.from({ length: 100 }, (_, index) => ({
 
 export async function fetchProducts(page: number = 1, limit: number = 12) {
   // Simulate server delay
-  await new Promise((resolve) => setTimeout(resolve, 500))
+  await new Promise((resolve) => setTimeout(resolve, 400))
 
   const start = (page - 1) * limit
   const end = start + limit

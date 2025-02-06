@@ -8,6 +8,9 @@ import { useInView } from "react-intersection-observer";
 import { useDebounce } from "@/hooks/use-debounce";
 import { fetchProducts } from "@/action/product";
 import { ProductSkeleton } from "./ProductCard";
+import { ModeToggle } from "@/components/ModeToggle";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 interface Product {
   id: number;
@@ -50,18 +53,27 @@ function WrapperProducts({ products }: { products: Product[] }) {
   }, [inView, fetchNextPage, hasNextPage]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <Input
-          type="search"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="max-w-md"
-        />
+    <div className="h-[calc(100vh-4rem)] overflow-y-auto">
+      <div className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex h-16 items-center px-4 gap-4">
+          <Link
+            href="/"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+          <Input
+            type="search"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="max-w-md"
+          />
+          <ModeToggle />
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
         {filteredProducts && filteredProducts.length > 0 ? (
           <>
             {filteredProducts.map((product: Product) => (
