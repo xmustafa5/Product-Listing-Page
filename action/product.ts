@@ -16,17 +16,25 @@ const mockProducts: Product[] = Array.from({ length: 100 }, (_, index) => ({
   image: `https://picsum.photos/seed/${index + 1}/400/400`,
 }))
 
-export async function fetchProducts(page: number = 1, limit: number = 12) {
+export async function fetchProducts(page: number = 1, limit: number = 12, search?: string) {
   // Simulate server delay
   await new Promise((resolve) => setTimeout(resolve, 400))
 
+  // Filter products based on search query
+  const filteredProducts = search
+    ? mockProducts.filter(product => 
+        product.title.toLowerCase().includes(search.toLowerCase()) ||
+        product.description.toLowerCase().includes(search.toLowerCase())
+      )
+    : mockProducts
+
   const start = (page - 1) * limit
   const end = start + limit
-  const paginatedProducts = mockProducts.slice(start, end)
+  const paginatedProducts = filteredProducts.slice(start, end)
 
   return {
     products: paginatedProducts,
-    hasMore: end < mockProducts.length,
-    total: mockProducts.length
+    hasMore: end < filteredProducts.length,
+    total: filteredProducts.length
   }
 }

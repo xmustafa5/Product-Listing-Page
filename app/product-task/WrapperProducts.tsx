@@ -25,10 +25,11 @@ function WrapperProducts({ products }: { products: Product[] }) {
   const debouncedSearch = useDebounce(searchQuery, 300);
   const { ref, inView } = useInView();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
     useInfiniteQuery({
       queryKey: ["products", debouncedSearch],
-      queryFn: ({ pageParam }) => fetchProducts(pageParam),
+      queryFn: ({ pageParam = 1 }) =>
+        fetchProducts(pageParam, 10, debouncedSearch),
       initialPageParam: 1,
       initialData: {
         pages: [{ products, hasMore: true, total: 100 }],
@@ -39,12 +40,11 @@ function WrapperProducts({ products }: { products: Product[] }) {
       },
     });
 
-  const filteredProducts =
-    data?.pages
-      .flatMap((page) => page.products)
-      .filter((product) =>
-        product.title.toLowerCase().includes(debouncedSearch.toLowerCase())
-      ) || [];
+  useEffect(() => {
+    refetch();
+  }, [debouncedSearch, refetch]);
+
+  const filteredProducts = data?.pages.flatMap((page) => page.products) || [];
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -53,7 +53,7 @@ function WrapperProducts({ products }: { products: Product[] }) {
   }, [inView, fetchNextPage, hasNextPage]);
 
   return (
-    <div className=" overflow-y-auto">
+    <div className="h-[calc(100vh-4rem)] overflow-y-auto">
       <div className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-16 items-center px-4 gap-4">
           <Link

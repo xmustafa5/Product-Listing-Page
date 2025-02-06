@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import HeaderPage from "./_components/shared/HeaderPage";
 import QueryClientProviderLayout from "./provider/QueryClientProviderLayout";
 
 const geistSans = localFont({
@@ -40,10 +39,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <div className="relative w-full">
-                {/* <HeaderPage /> */}
-                {children}
-              </div>
+              <div className="relative w-full">{children}</div>
             </ThemeProvider>
           </QueryClientProviderLayout>
         </div>
